@@ -1,3 +1,4 @@
+<div style="margin-top: 70px;>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -5,5 +6,31 @@
   <%= @category.name %>
 </p>
 
+<%= form_with model: [@category, @product], local: true do |form| %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.text_field :price %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+    <% @category.products.each do |t| %>
+          <tr>
+            <td><%= t.name %></td>
+            <td><%= t.price %></td>
+            <td><%= link_to 'Destroy', category_product_path(@category, t) , method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+    <% end %>
+
 <%= link_to 'Edit', edit_category_path(@category) %> |
 <%= link_to 'Back', categories_path %>
+
+</div>
