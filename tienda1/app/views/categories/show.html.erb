@@ -1,36 +1,48 @@
-<div style="margin-top: 70px;>
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @category.name %>
-</p>
+<div class="container" style="margin-top: 70px;">
 
-<%= form_with model: [@category, @product], local: true do |form| %>
+  <div class="col-md-12">
+      <div class="col-md-6" style="background-color: #58FAAC">
+        <h3> Crear producto en categoria: </h3>
+          <p> <strong>Nombre categoría:</strong> <%= @category.name %> </p>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+          <%= form_with model: [@category, @product], local: true do |form| %>
+
+            <div class="field">
+              <%= form.label :name %>
+              <%= form.text_field :name %>
+            </div>
+
+            <div class="field">
+              <%= form.label :price %>
+              <%= form.text_field :price %>
+            </div>
+
+            <div class="actions">
+              <%= form.submit %>
+            </div>
+          <% end %>
+
+          <%= link_to 'Edit', edit_category_path(@category) %> |
+          <%= link_to 'Back', categories_path %>
+
+      </div>
+
+     <div class="col-md-6">
+     
+        <div class="well"> 
+           <h3>Lista de Productos</h3>
+            <% @category.products.each do |t| %>
+                <ul>
+                  <li style="list-style:none;"> Nombre producto:  <%= t.name %></li>
+                  <li style="list-style:none;"> Precio producto:  <%= t.price %></li>
+                  
+                  <li style="list-style:none;"> <button type="button" class="btn btn-danger"> <%= link_to 'Destroy', category_product_path(@category, t) , method: :delete, data: { confirm: 'Are you sure?' } %> </button>
+                      
+                    </li>
+                </ul>
+          <% end %>
+        </div>
+      </div>
   </div>
-
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.text_field :price %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
-    <% @category.products.each do |t| %>
-          <tr>
-            <td><%= t.name %></td>
-            <td><%= t.price %></td>
-            <td><%= link_to 'Destroy', category_product_path(@category, t) , method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          </tr>
-    <% end %>
-
-<%= link_to 'Edit', edit_category_path(@category) %> |
-<%= link_to 'Back', categories_path %>
-
 </div>
